@@ -59,7 +59,7 @@ body, html {
 
 .main-title {
     margin-top: 0.1vw;
-    font-family: 'Alegreya Sans', sans-serif;
+    font-family: 'Play', sans-serif;
     color: #FFFFFF;
     font-size: 3.1vw;
     line-height: 3vw;
@@ -83,7 +83,7 @@ body, html {
 .header-container {
     display: inline;
     color: #FFFFFF;
-    font-family: 'Alegreya Sans', sans-serif;
+    font-family: 'Play', sans-serif;
     font-size: 140%;
     align-self: center;
 }
@@ -99,7 +99,7 @@ body, html {
 
 #clock-container {
    text-align: right;
-   font-family: 'Architects Daughter', cursive;
+   font-family: 'Play', sans-serif;
    display: inline-table;
    font-size: 2.8vw;
    line-height: 2.0vw;

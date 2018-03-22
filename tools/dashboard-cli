@@ -3,7 +3,7 @@
 # Configuration
 ##############################################################################
 # URL of the nagios-api
-my $dasbhoard_url = "http://example.com/dashboard";
+my $dashboard_url = "http://localhost/ops-dashboard";
 my $timeout = 20;
 my $default_ttl = "1h";
 # verbosity level
@@ -29,11 +29,11 @@ use JSON;
 use Time::Local;
 
 my %api_urls;
-$api_urls{add_message} = "$dasbhoard_url/php/api/add_message.php";
-$api_urls{get_messages} = "$dasbhoard_url/php/api/get_messages.php";
-$api_urls{kill_message} = "$dasbhoard_url/php/api/kill_message.php";
-$api_urls{set_personnel} = "$dasbhoard_url/php/api/set_personnel.php";
-$api_urls{clear_personnel} = "$dasbhoard_url/php/api/clear_personnel.php";
+$api_urls{add_message} = "$dashboard_url/php/api/add_message.php";
+$api_urls{get_messages} = "$dashboard_url/php/api/get_messages.php";
+$api_urls{kill_message} = "$dashboard_url/php/api/kill_message.php";
+$api_urls{set_personnel} = "$dashboard_url/php/api/set_personnel.php";
+$api_urls{clear_personnel} = "$dashboard_url/php/api/clear_personnel.php";
 
 
 my ($help, $message, $sender, $ttl, $message_id, $list_messages, $verbose, $oncall, $aod, $clear_oncall, $clear_aod);
@@ -65,7 +65,7 @@ if (defined($list_messages)) {
     list_messages($api_urls{get_messages});
     exit 0;
 } elsif (defined($message)) {
-    
+
     unless (defined($message)) {
         print "Please provide a message!\n";
     }
@@ -95,7 +95,7 @@ if (defined($list_messages)) {
     } else {
         print "Problem while sending message: $result\n";
         exit 1;
-    }   
+    }
 } elsif (defined($oncall) || (defined($aod))) {
     my $type = "";
     my $username = "";
@@ -113,7 +113,7 @@ if (defined($list_messages)) {
     } else {
         print "Problem while setting $type: $result\n";
         exit 1;
-    }   
+    }
 } elsif (defined($clear_oncall) || defined($clear_aod)) {
     my $type = "";
     my $username = "";
@@ -131,15 +131,15 @@ if (defined($list_messages)) {
     } else {
         print "Problem while clearing $type: $result\n";
         exit 1;
-    }   
+    }
 }
 
-exit 0; 
+exit 0;
 
 ###########################################################################
 ############################## Subroutines ################################
 ###########################################################################
-    
+
 sub print_usage () {
     print "Usage: $0 [[-m MESSGAGE -s SENDER -t TTL ] | [ -l ] | [ -k ID ]]\n\n";
     print " -h|--help               Print this help\n";
@@ -151,10 +151,10 @@ sub print_usage () {
     print "\n";
     print "Listing messages:\n";
     print " -l|--list               List the messages that are shown\n";
-    print "\n";    
+    print "\n";
     print "Killing messages:\n";
     print " -k|--kill-message ID    The id of the message that is to be killed\n";
-    print "\n";    
+    print "\n";
     print "Setting AoD/Oncall:\n";
     print " -o|--oncall ONCALL      Username/nickname of the Oncall\n";
     print " -a|--aod AOD            Username/nickname of the AoD (Admin of the Day)\n";
@@ -200,15 +200,15 @@ sub list_messages($) {
         my @result = @{from_json($response->decoded_content)};
         if (scalar @result) {
             printf "%-3s |  %-50s | %-10s | %-25s | %-25s\n", "id", "message", "sender", "sent", "valid_until";
-            printf "-----------------------------------------------------------------------------------------------------------------------------\n";        
+            printf "-----------------------------------------------------------------------------------------------------------------------------\n";
             foreach my $ref_message (@result) {
                 my %message = %{$ref_message};
                 my $sent = scalar(localtime($message{timestamp}));
                 my $valid_until = scalar(localtime($message{valid_until}));
                 printf "%-3s |  %-50s | %-10s | %-25s | %-25s\n", $message{id}, $message{message}, $message{sender}, $sent, $valid_until;
-                
+
             }
-        print "\n";            
+        print "\n";
         } else {
             print "There are no messages to show\n";
         }

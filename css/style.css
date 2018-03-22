@@ -254,7 +254,17 @@ body, html {
     order: 2;
     font-size: 1.65em;
     line-height: 1.35em;
-    margin-bottom: 0.3em;
+    margin-bottom: -0.5em;
+}
+
+.status_information {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;    
+    order: 3;
+    font-size: 1.0em;
+    line-height: 0.8em;
+    margin-bottom: -0.3em;
 }
 
 .alert-down .host {

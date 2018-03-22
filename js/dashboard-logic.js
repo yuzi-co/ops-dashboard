@@ -12,6 +12,7 @@ $(function() {
                             <div class="tile-rest">\n\
                               <div class="service {service_hidden}">{service}</div>\n\
                               <div class="host">{host}</div>\n\
+                              <div class="status_information">{status_information}</div>\n\
                               <div class="tag_holder">\n\
                                 <span class="dashtag alert_active blink {alert_active_hidden}">alert active</span>\n\
                                 <span class="dashtag group_size {is_grouped_hidden}">{group_size}</span>\n\
@@ -94,6 +95,7 @@ $(function() {
 			service_hidden: service_hidden,
 			service: ("service" in object ? object['service'] : null),
 			host: object["host"],
+			status_information: object["status_information"],
       is_grouped_hidden: is_grouped_hidden,
       group_size: object['group_size'],
 			alert_active_hidden: alert_active_hidden,
